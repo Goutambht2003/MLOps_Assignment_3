@@ -1,0 +1,43 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - docker_ci
+
+jobs:
+  build_and_test_container:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Train Sklearn Model
+      run: |
+        python train.py
+
+    - name: Build Docker Image
+      run: |
+        docker build -t ${{ secrets.docker login -u goutambht2003 }}/mlops-a3 .
+
+    - name: Run Docker Container (Verification)
+      run: |
+        docker run ${{ secrets.docker login -u goutambht2003 }}/mlops-a3
+
+    - name: Login to DockerHub
+      run: |
+        echo "${{ secrets.dckr_pat_yMGp3rlneaJaNq-emPkoDFrFgSg }}" | docker login -u "${{ secrets.docker login -u goutambht2003 }}" --password-stdin
+
+    - name: Push Docker Image to DockerHub
+      run: |
+        docker push ${{ secrets.docker login -u goutambht2003 }}/mlops-a3

@@ -28,16 +28,16 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        docker build -t ${{ secrets.docker login -u goutambht2003 }}/mlops-a3 .
+        docker build -t ${{ secrets.goutambht2003 }}/mlops-a3 .
 
     - name: Run Docker Container (Verification)
       run: |
-        docker run ${{ secrets.docker login -u goutambht2003 }}/mlops-a3
+        docker run ${{ secrets.goutambht2003 }}/mlops-a3
 
     - name: Login to DockerHub
       run: |
-        echo "${{ secrets.dckr_pat_yMGp3rlneaJaNq-emPkoDFrFgSg }}" | docker login -u "${{ secrets.docker login -u goutambht2003 }}" --password-stdin
+        echo "${{ secrets.docker login -u goutambht2003 }}" | docker login -u "${{ secrets.goutambht2003 }}" --password-stdin
 
     - name: Push Docker Image to DockerHub
       run: |
-        docker push ${{ secrets.docker login -u goutambht2003 }}/mlops-a3
+        docker push ${{ secrets.goutambht2003 }}/mlops-a3
